@@ -20,22 +20,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TweetBox = function (_React$Component) {
   _inherits(TweetBox, _React$Component);
 
-  function TweetBox() {
+  function TweetBox(props) {
     _classCallCheck(this, TweetBox);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(TweetBox).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TweetBox).call(this, props));
+
+    _this.state = {
+      text: ""
+    };
+    return _this;
   }
 
   _createClass(TweetBox, [{
-    key: 'getInitialState',
-    value: function getInitialState() {
-      return {
-        text: ""
-      };
-    }
-  }, {
     key: 'handleChange',
     value: function handleChange(event) {
+      // this.setState({ text:event.target.value    });
       console.log(event.target.value);
     }
   }, {
@@ -44,24 +43,22 @@ var TweetBox = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'well clearfix' },
-        _react2.default.createElement(
-          'textarea',
-          { className: 'form-control', onChange: this.handleChange },
-          ' '
-        ),
+        _react2.default.createElement('textarea', { className: 'form-control', onChange: this.handleChange }),
         ' ',
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'span',
           null,
-          '150'
+          ' 150 '
         ),
+        ' ',
         _react2.default.createElement(
           'button',
           { className: 'btn btn-primary pull-right' },
           ' Button '
-        )
+        ),
+        ' '
       );
     }
   }]);
@@ -70,34 +67,74 @@ var TweetBox = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
+
 (0, _reactDom.render)(_react2.default.createElement(TweetBox, null), document.getElementById('container'));
 
 /*
-class TweetBox extends React.Component {
-	 getInitialState () {
+var TweetBox = React.createClass({
+  getInitialState: function() {
     return {
-      text: ""
+      text: "",
+      photoAdded: false
     };
   },
-  handleChange (event) {
+  handleChange: function(event) {
     this.setState({ text: event.target.value });
-    console.log(event.target.value);
   },
-  render () {
+  togglePhoto: function(event) {
+    this.setState({ photoAdded: !this.state.photoAdded });
+  },
+  overflowAlert: function() {
+    if (this.remainingCharacters() < 0) {
+      if (this.state.photoAdded) {
+        var beforeOverflowText = this.state.text.substring(140 - 23 - 10, 140 - 23);
+        var overflowText = this.state.text.substring(140 - 23);
+      } else {
+        var beforeOverflowText = this.state.text.substring(140 - 10, 140);
+        var overflowText = this.state.text.substring(140);
+      }
+
+      return (
+        <div className="alert alert-warning">
+          <strong>Oops! Too Long:</strong>
+          &nbsp;...{beforeOverflowText}
+          <strong className="bg-danger">{overflowText}</strong>
+        </div>
+      );
+    } else {
+      return "";
+    }
+  },
+  remainingCharacters: function() {
+    if (this.state.photoAdded) {
+      return 140 - 23 - this.state.text.length;
+    } else {
+      return 140 - this.state.text.length;
+    }
+  },
+  render: function() {
     return (
       <div className="well clearfix">
+        { this.overflowAlert() }
         <textarea className="form-control"
-                  onChange={this.handleChange}>
-        </textarea>
+                  onChange={this.handleChange}></textarea>
         <br/>
+        <span>{ this.remainingCharacters() }</span>
         <button className="btn btn-primary pull-right"
-                disabled={this.state.text.length === 0}>Tweet</button>
+          disabled={this.state.text.length === 0 && !this.state.photoAdded}>Tweet</button>
+        <button className="btn btn-default pull-right"
+          onClick={this.togglePhoto}>
+          {this.state.photoAdded ? "✓ Photo Added" : "Add Photo" }
+        </button>
       </div>
     );
   }
-};
-render( < TweetBox / > , document.getElementById('container'));
+});
 
+ReactDOM.render(
+  <TweetBox />,
+  document.getElementById("container")
+);
 */
 
 },{"react":159,"react-dom":30}],2:[function(require,module,exports){
